@@ -12,6 +12,8 @@ class Launcher {
 
             PersonDAO personDAO = (PersonDAO) context.getBean("customerDAO"); // Загрузка бина доступа к таблице клиентов 
 
+            personDAO.deleteAll(); // Удаление всех записей
+            
             Person person = new Person("Sergey", "Talipov", 39); // Создание нового объекта таблицы клиентов 
             personDAO.insert(person); // Вставить новый объект (запись) в таблицу клиентов
 
@@ -48,9 +50,8 @@ class Launcher {
                 System.out.println(myPerson.getFirstName() + " " + myPerson.getLastName());
             }
 
-            personDAO.deleteAll(); // Удаление всех записей
-
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Error!");
         }
     }
