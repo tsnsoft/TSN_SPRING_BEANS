@@ -4,6 +4,7 @@
 
 ![screenshot](screenshot2.png)
 
+Скрипт для создания таблицы:
 ```
 CREATE TABLE IF NOT EXISTS `tsn_demo`.`person` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
