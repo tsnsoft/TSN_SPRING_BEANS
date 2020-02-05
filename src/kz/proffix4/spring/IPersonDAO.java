@@ -8,26 +8,15 @@ import java.util.List;
  *
  */
 public interface IPersonDAO {
-
     void setDataSource(DataSource ds); // Установка связи с данныими
-
     void insert(Person customer); // Вставка новой записи
-
     void append(String firstName, String lastName, int age); // Добавление новой записи
-
     void deleteByLastName(String lastName); // Удаление записи по фамилии
-
     void delete(String firstName, String lastName); // Удаление записи с указанным именем и фамилией
-
     void deleteAll(); // Удаление всех запией
-
     void update(String oldLastName, String newLastName); // Изменение записей в таблице
-
     Person findByAge(int id); // Получение записи с заданным возрастом
-
     List<Person> findByFirstName(String firstName); // Получение записей с заданным именем 
-
     List<Person> select(String firstName, String lastName); // Получение записей с заданным именем и фамилией
-
     List<Person> selectAll(); // Получение всех записей
 }
