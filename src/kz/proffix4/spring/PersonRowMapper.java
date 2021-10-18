@@ -27,10 +27,10 @@ public class PersonRowMapper implements RowMapper {
         @Override
         public Object extractData(ResultSet rs) throws SQLException {
             Person person = new Person();
-            person.setId(rs.getInt(1));
-            person.setFirstName(rs.getString(2));
-            person.setLastName(rs.getString(3));
-            person.setAge(rs.getInt(4));
+            person.setId(rs.getInt("id"));
+            person.setFirstName(rs.getString("firstName"));
+            person.setLastName(rs.getString("lastName"));
+            person.setAge(rs.getInt("age"));
             return person;
         }
     }
