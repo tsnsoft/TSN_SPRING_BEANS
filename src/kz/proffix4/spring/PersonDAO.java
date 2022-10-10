@@ -65,7 +65,6 @@ public class PersonDAO implements IPersonDAO {
     }
 
     @Override
-
     public void deleteAll() {  // Реализация удаления всех запией
         JdbcTemplate jt = new JdbcTemplate(dataSource);
         jt.update("DELETE from PERSON");
