@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IPersonDAO {
     void setDataSource(DataSource ds); // Установка связи с данныими
-    void insert(Person customer); // Вставка новой записи
+    void insert(Person person); // Вставка новой записи
     void append(String firstName, String lastName, int age); // Добавление новой записи
     void deleteByLastName(String lastName); // Удаление записи по фамилии
     void delete(String firstName, String lastName); // Удаление записи с указанным именем и фамилией

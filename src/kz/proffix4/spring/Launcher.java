@@ -8,7 +8,7 @@ class Launcher {
 
     public static void main(String[] args) {
         try {
-            ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml"); // Загрузка файла с биновами
+            ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml"); // Загрузка файла с бинами
 
             PersonDAO personDAO = (PersonDAO) context.getBean("customerDAO"); // Загрузка бина доступа к таблице клиентов 
 
