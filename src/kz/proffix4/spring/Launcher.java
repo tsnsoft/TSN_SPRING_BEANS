@@ -1,19 +1,25 @@
 package kz.proffix4.spring;
 
+import org.slf4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;
 import java.util.List;
+import org.slf4j.LoggerFactory;
 
 class Launcher {
 
     public static void main(String[] args) {
+
+        Logger logger = (Logger) LoggerFactory.getLogger(Launcher.class);
         try {
+            logger.info("Начало обработки!");
+
             ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml"); // Загрузка файла с бинами
 
             PersonDAO personDAO = (PersonDAO) context.getBean("customerDAO"); // Загрузка бина доступа к таблице клиентов 
 
             personDAO.deleteAll(); // Удаление всех записей
-            
+
             Person person = new Person("Sergey", "Talipov", 39); // Создание нового объекта таблицы клиентов 
             personDAO.insert(person); // Вставить новый объект (запись) в таблицу клиентов
 
@@ -50,9 +56,12 @@ class Launcher {
                 System.out.println(myPerson.getFirstName() + " " + myPerson.getLastName());
             }
 
+            logger.info("Успех!");
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error!");
         }
+
     }
 }

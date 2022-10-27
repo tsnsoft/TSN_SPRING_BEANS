@@ -33,7 +33,7 @@ public class PersonDAO implements IPersonDAO {
     @Override
     public void append(String firstName, String lastName, int age) {  // Реализация добавления новой записи
         JdbcTemplate jt = new JdbcTemplate(dataSource);
-        jt.update("INSERT INTO PERSON (FIRSTNAME, LASTNAME, AGE) VALUES(?,?,?)", 
+        jt.update("INSERT INTO PERSON (FIRSTNAME, LASTNAME, AGE) VALUES(?,?,?)",
                 new Object[]{firstName, lastName, age});
     }
 
@@ -66,8 +66,11 @@ public class PersonDAO implements IPersonDAO {
 
     @Override
     public void deleteAll() {  // Реализация удаления всех запией
-        JdbcTemplate jt = new JdbcTemplate(dataSource);
-        jt.update("DELETE from PERSON");
+        try {
+            JdbcTemplate jt = new JdbcTemplate(dataSource);
+            jt.update("DELETE from PERSON");
+        } catch (Exception e) {
+        }
     }
 
     @Override
