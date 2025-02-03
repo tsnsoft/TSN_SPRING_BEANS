@@ -9,48 +9,56 @@ import org.slf4j.LoggerFactory;
 class Launcher {
 
     public static void main(String[] args) {
-
-        Logger logger = (Logger) LoggerFactory.getLogger(Launcher.class);
+        // Создание логгера
+        Logger logger = LoggerFactory.getLogger(Launcher.class);
         try {
             logger.info("Начало обработки!");
 
-            ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml"); // Загрузка файла с бинами
+            // Загрузка контекста Spring из файла конфигурации
+            ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-            PersonDAO personDAO = (PersonDAO) context.getBean("customerDAO"); // Загрузка бина доступа к таблице клиентов 
+            // Получение бина доступа к таблице клиентов
+            PersonDAO personDAO = (PersonDAO) context.getBean("customerDAO");
 
-            personDAO.deleteAll(); // Удаление всех записей
+            // Удаление всех записей из таблицы
+            personDAO.deleteAll();
 
-            Person person = new Person("Sergey", "Talipov", 39); // Создание нового объекта таблицы клиентов 
-            personDAO.insert(person); // Вставить новый объект (запись) в таблицу клиентов
+            // Создание и вставка новых записей в таблицу клиентов
+            Person person = new Person("Sergey", "Talipov", 39);
+            personDAO.insert(person);
+            personDAO.insert(new Person("Sergey", "Talin", 33));
+            personDAO.insert(new Person("Pavel", "Borovoi", 28));
 
-            personDAO.insert(new Person("Sergey", "Talin", 33)); // Вставить новый объект (запись) в таблицу клиентов
-            personDAO.insert(new Person("Pavel", "Borovoi", 28)); // Вставить новый объект (запись) в таблицу клиентов
+            // Поиск записи по возрасту клиента и вывод результата
+            Person person1 = personDAO.findByAge(28);
+            System.out.println(person1 != null ? person1 : "Нет данных");
 
-            Person person1 = personDAO.findByAge(28); // Поиск записи по возрасту клиента
-            System.out.println(person1 != null ? person1 : "Нет данных"); // Вывод на экран найденной записи
+            // Удаление записей по фрагменту фамилии и по имени и фамилии
+            personDAO.deleteByLastName("bor");
+            personDAO.delete("Sergey", "Talin");
 
-            personDAO.deleteByLastName("bor"); // Удаление записей по фрагменту фамилии
-            personDAO.delete("Sergey", "Talin"); // Удалениезаписи пл имени и фамилии
-
-            List<Person> persons = personDAO.findByFirstName("ser"); // Поиск записей по фрагменту имени
+            // Поиск записей по фрагменту имени и вывод результата
+            List<Person> persons = personDAO.findByFirstName("ser");
             System.out.println(persons != null ? persons : "Нет данных");
 
-            personDAO.append("Lars", "Vogel", 18); // Добавлние записей
+            // Добавление новых записей в таблицу клиентов
+            personDAO.append("Lars", "Vogel", 18);
             personDAO.append("Jim", "Knopf", 25);
             personDAO.append("Lars", "Man", 33);
             personDAO.append("Spider", "Man", 44);
 
-            personDAO.update("Knopf", "Talipov"); // Изменение записей в таблице
+            // Обновление записей в таблице
+            personDAO.update("Knopf", "Talipov");
 
+            // Вывод всех данных из таблицы
             System.out.println("Данные в таблице БД:");
-
             List<Person> list = personDAO.selectAll();
             for (Person myPerson : list) {
                 System.out.println(myPerson.getFirstName() + " " + myPerson.getLastName() + " " + myPerson.getAge());
             }
 
-            System.out.println("Вывод записей с имением Lars и фамилией Vogel:");
-
+            // Вывод записей с именем Lars и фамилией Vogel
+            System.out.println("Вывод записей с именем Lars и фамилией Vogel:");
             list = personDAO.select("Lars", "Vogel");
             for (Person myPerson : list) {
                 System.out.println(myPerson.getFirstName() + " " + myPerson.getLastName());
@@ -59,9 +67,10 @@ class Launcher {
             logger.info("Успех!");
 
         } catch (Exception e) {
+            // Обработка исключений и вывод ошибки в консоль
             e.printStackTrace();
             System.out.println("Error!");
+            logger.error("Ошибка обработки!", e);
         }
-
     }
 }

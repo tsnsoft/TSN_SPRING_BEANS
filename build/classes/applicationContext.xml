@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-         <property name="url" value="jdbc:mysql://localhost:3306/tsn_demo?&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
-        <property name="username" value="user" />
-        <property name="password" value="PassW0rd++" />
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+         <property name="url" value="jdbc:mysql://localhost:3306/tsn_demo?serverTimezone=Asia/Almaty&amp;useSSL=false"/>
+        <property name="username" value="root" />
+        <property name="password" value="PassW0Rd++" />
     </bean>
 
     <bean id="customerDAO" class="kz.proffix4.spring.PersonDAO">
