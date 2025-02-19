@@ -1,7 +1,7 @@
 package kz.proffix4.spring;
 
 /**
- * Класс, соответсвующий записи в таблице Person
+ * Класс, соответствующий записи в таблице Person
  *
  */
 public class Person {

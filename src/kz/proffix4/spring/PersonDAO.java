@@ -26,21 +26,21 @@ public class PersonDAO implements IPersonDAO {
     @Override
     public void insert(Person person) { // Реализация вставки новой записи
         JdbcTemplate jt = new JdbcTemplate(dataSource);
-        jt.update("INSERT INTO PERSON (FIRSTNAME, LASTNAME, AGE) VALUES(?,?,?)",
+        jt.update("INSERT INTO person (FIRSTNAME, LASTNAME, AGE) VALUES(?,?,?)",
                 new Object[]{person.getFirstName(), person.getLastName(), person.getAge()});
     }
 
     @Override
     public void append(String firstName, String lastName, int age) {  // Реализация добавления новой записи
         JdbcTemplate jt = new JdbcTemplate(dataSource);
-        jt.update("INSERT INTO PERSON (FIRSTNAME, LASTNAME, AGE) VALUES(?,?,?)",
+        jt.update("INSERT INTO person (FIRSTNAME, LASTNAME, AGE) VALUES(?,?,?)",
                 new Object[]{firstName, lastName, age});
     }
 
     @Override
     public void deleteByLastName(String lastname) {  // Реализация удаления записей по фамилии
         JdbcTemplate jt = new JdbcTemplate(dataSource);
-        jt.update("DELETE FROM PERSON WHERE LASTNAME LIKE ?", new Object[]{'%' + lastname + '%'});
+        jt.update("DELETE FROM person WHERE LASTNAME LIKE ?", new Object[]{'%' + lastname + '%'});
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PersonDAO implements IPersonDAO {
             public Object doInTransaction(TransactionStatus status) {
                 try {
                     JdbcTemplate jt = new JdbcTemplate(dataSource);
-                    jt.update("DELETE from PERSON where FIRSTNAME= ? AND LASTNAME = ?", new Object[]{firstName, lastName});
+                    jt.update("DELETE from person where FIRSTNAME= ? AND LASTNAME = ?", new Object[]{firstName, lastName});
                 } catch (RuntimeException e) {
                     status.setRollbackOnly();
                     throw e;
@@ -68,7 +68,7 @@ public class PersonDAO implements IPersonDAO {
     public void deleteAll() {  // Реализация удаления всех запией
         try {
             JdbcTemplate jt = new JdbcTemplate(dataSource);
-            jt.update("DELETE from PERSON");
+            jt.update("DELETE from person");
         } catch (Exception e) {
         }
     }
@@ -76,13 +76,13 @@ public class PersonDAO implements IPersonDAO {
     @Override
     public void update(String oldLastName, String newLastName) {  // Изменение записей в таблице
         JdbcTemplate jt = new JdbcTemplate(dataSource);
-        jt.update("UPDATE PERSON SET LASTNAME = ? WHERE LASTNAME = ?", new Object[]{newLastName, oldLastName});
+        jt.update("UPDATE person SET LASTNAME = ? WHERE LASTNAME = ?", new Object[]{newLastName, oldLastName});
     }
 
     @Override
     public Person findByAge(int age) { // Реализация роиска записи с заданным возрастом
         JdbcTemplate jt = new JdbcTemplate(dataSource);
-        List<Person> person = jt.query("SELECT * FROM PERSON WHERE AGE = ?",
+        List<Person> person = jt.query("SELECT * FROM person WHERE AGE = ?",
                 new Object[]{age}, new PersonRowMapper());
         return person.size() > 0 ? person.get(0) : null;
     }
@@ -90,7 +90,7 @@ public class PersonDAO implements IPersonDAO {
     @Override
     public List<Person> findByFirstName(String lastname) {  // Реализация поиска записей по имени
         JdbcTemplate jt = new JdbcTemplate(dataSource);
-        String sql = "SELECT * FROM PERSON WHERE FIRSTNAME LIKE ?";
+        String sql = "SELECT * FROM person WHERE FIRSTNAME LIKE ?";
         List<Person> persons = jt.query(sql, new Object[]{'%' + lastname + '%'}, new PersonRowMapper());
         return persons;
     }
@@ -98,14 +98,14 @@ public class PersonDAO implements IPersonDAO {
     @Override
     public List<Person> select(String firstname, String lastname) {  // Реализация получения записей с заданным именем и фамилией
         JdbcTemplate jt = new JdbcTemplate(dataSource);
-        return jt.query("select  * from PERSON where FIRSTNAME = ? AND LASTNAME= ?",
+        return jt.query("select  * from person where FIRSTNAME = ? AND LASTNAME= ?",
                 new Object[]{firstname, lastname}, new PersonRowMapper());
     }
 
     @Override
     public List<Person> selectAll() {  // Реализация получения всех записей
         JdbcTemplate jt = new JdbcTemplate(dataSource);
-        return jt.query("select * from PERSON", new PersonRowMapper());
+        return jt.query("select * from person", new PersonRowMapper());
     }
 
 }

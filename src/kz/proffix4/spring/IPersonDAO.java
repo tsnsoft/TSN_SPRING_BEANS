@@ -4,7 +4,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 /**
- * Интерфейс работы с таблицой Person
+ * Интерфейс работы с таблицей Person
  *
  */
 public interface IPersonDAO {
