@@ -6,7 +6,7 @@
 
 Скрипт для создания таблицы:
 ```
-CREATE TABLE IF NOT EXISTS `tsn_demo`.`person` (
+CREATE TABLE IF NOT EXISTS `tsn_demo`.`PERSON` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `firstName` VARCHAR(45) NULL DEFAULT NULL,
   `lastName` VARCHAR(45) NULL DEFAULT NULL,
